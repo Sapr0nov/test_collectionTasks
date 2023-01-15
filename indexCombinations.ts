@@ -1,28 +1,32 @@
+
 /** Функция рекурсивного подсчета факториала
 @param n - базовое число факториала
 */
-function factorial(n){
+
+function factorial(n:number): number {
     if(n < 0){
-        return "number has to be positive."
+        throw new Error("Number has to be positive.");
     }
     if(n == 0 || n == 1){
         return 1;
     }else{
         return n * factorial(n-1);
     }
-}
-  
+  }
+    
   
 /** Функция генерации сочетаний - теория https://www.youtube.com/watch?v=yTIRwioT8W4
  @param arr - входной массив индексов
 @param k - количество значений в одном наборе
 */
-function combination (arr, k) {
+type NumArray = Array<number>;
+
+function combinationsIndex(arr:Array<number>, k: number): Array<NumArray> {
     // информационно - Возможное количество сочетаний n! / k! (n-k)!  (длинна результирующего массива)
     const expectLength = (factorial(arr.length) / ( factorial(k)*factorial(arr.length - k) ));
     // объявляем рабочий массив и массив результов
-    const workArr = [];
-    const results = [];
+    const workArr:NumArray = [];
+    const results:Array<NumArray> = [];
     // обозначем переменную выхода
     let doSearch = true;
     // инициализируем стартовый массив
@@ -63,3 +67,5 @@ function combination (arr, k) {
 
 return results;
 }
+
+combinationsIndex([0,1,2,3,4,5],3);

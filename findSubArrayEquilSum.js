@@ -53,14 +53,14 @@ function sostavChisla(massivChisel, chislo) {
 @param n - базовое число факториала
 */
 
-function factorial(n){
+function fac(n){
   if(n < 0){
       return "number has to be positive."
   }
   if(n == 0 || n == 1){
       return 1;
   }else{
-      return n * factorial(n-1);
+      return n * fac(n-1);
   }
 }
 
@@ -72,7 +72,7 @@ function factorial(n){
 
 function combinations(arr, k) {
   // информационно - Возможное количество сочетаний n! / k! (n-k)!  (длинна результирующего массива)
-  const expectLength = (factorial(arr.length) / ( factorial(k)*factorial(arr.length - k) ));
+  const expectLength = (fac(arr.length) / ( fac(k)*fac(arr.length - k) ));
   // объявляем рабочий массив и массив результов
   const workArr = [];
   const results = [];
