@@ -22,6 +22,39 @@ function sostavChisla(massivChisel:Array<number>, chislo:number) {
   // отсортируем их
   uniqueNumbers = uniqueNumbers.sort(); 
   
+
+/*
+        static void summ2(int[] num, int n, int m)
+        {
+            int[] way = new int[m+1];
+            for (int i = 0; i <= m; ++i)
+                way[i] = 0;
+
+            way[0] = 1;
+
+            for (int i = 0; i < n; ++i)
+                for (int j = m; j > 0; --j)
+                    if (way[j] == 0 && j >= num[i] && way[j-num[i]] != 0)
+                        way[j] = num[i];
+
+            if (way[m] == 0)
+                Console.WriteLine("Всё плохо");
+            else
+            {
+                Console.Write("Всё хорошо, путь: ");
+                for (int i = m; i != 0; i -= way[i])
+                    Console.Write("{0} ", way[i]);
+                Console.WriteLine("");
+            }
+        }
+
+            summ2(m, l, needed);
+
+        }
+    }
+}
+*/
+
   // подходящие наборы будем сохранять в массив results
   let results:Array<number[]> = [];
   // собираем массив всех возможных перестановок
@@ -129,7 +162,9 @@ function compareArraysOfNumericArrays(arr1: string | any[], arr2: any[]) {
 }
 
 //runTests();
-console.log(sostavChisla([8, 2, 3, 4, 6, 7, 1], 5));
+//console.log(sostavChisla([8, 2, 3, 4, 6, 7, 1], 5));
+console.log(summ2([8, 2, 3, 4, 6, 7, 1], 7, 5));
+
 //console.log( combinations([0,1,2,3,4],3) );
 
 function runTests() {
@@ -192,5 +227,52 @@ function runTests() {
 
 function num(value: number, index: number, array: number[]): value is number {
   throw new Error("Function not implemented.");
+}
+
+
+/*
+Ладно. Рассмотрим всё по порядку. 
+Пусть у нас есть m целых положительных элементов a[i] 
+и трубеится найти можно ли из них составить сумму равную n. 
+Создадим массив can[i][k] размера m на n+1. can[i][k] = 1, 
+если мы можем получить каким-то образом суммируя только элементы a[0]...a[i] сумму равную k. 
+Нас интерисует значение can[m][n], т.е. можем ли мы получить используя элементы a[0]...a[m] сумму n.
+Очевидно can[0][k] = 0, для всех k != a[0] и k != 0. can[0][0] = 1 и can[0][a[0]] = 1. 
+Т.е. используя один элемент мы можем получить только сумму равную 0 или этому элементу.
+Рассмотрим как по массиву can[i-1] можно построить can[i]. 
+Очевидно, что используя i элементов всегда можно получить те же суммы, что и используя i=1 элемент 
+(просто не добавляя к прежним суммам i-й элемент). Т.е. если can[i-1][k]=1, то can[i][k]=1 так же. 
+Кроме того, к любой из прежних сумм мы можем добавить i-й элемент, т.е. если can[i-1][k]=1, то can[i][k+a[i]]=1 так же. 
+Во всех остальных случаях can[i][k]=0.
+Реализация вышеописанного в (псевдо)коде будет выглядеть вот так:
+m (uniqueNumbers)
+n (chislo)
+const workArray:Array<number[]> //(uniqueNumbers.length, chislo+1)
+
+*/
+function summ2(arr:Array<number>, n:number, mLenght:number) {
+  let way:Array<number> = [];
+//  way.fill(0);
+  for (let i = 0; i <= mLenght; ++i) {
+    way[i] = 0;
+  }
+  way[0] = 1;
+
+  for (let i = 0; i < n; ++i) {
+    for (let j = mLenght; j > 0; --j) {
+      if (way[j] == 0 && j >= arr[i] && way[j - arr[i]] != 0) {
+        way[j] = arr[i];
+      }
+    }
+  }
+  if (way[mLenght] == 0) {
+    console.log('net resheniy');
+  }else{
+    console.log('calc start...');
+    for (let i = mLenght; i != 0; i -= way[i]) {
+      console.log("{o}", way[i]);
+      
+    }
+  }
 }
 
