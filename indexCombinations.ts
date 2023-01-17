@@ -68,4 +68,4 @@ function combinationsIndex(arr:Array<number>, k: number): Array<NumArray> {
 return results;
 }
 
-combinationsIndex([0,1,2,3,4,5],3);
+console.log( combinationsIndex([0,1,2,3,4,5],4) );
